@@ -18,8 +18,8 @@ services:
       context: ./docker/php
       dockerfile: Dockerfile
       args:
-        UID: ${UID:-501} # Macの設定
-        GID: ${GID:-20} # Macの既定(staff)
+        UID: ${UID:-501} # Mac なら 501、WSL/Ubuntu なら 1000
+        # GID は渡さない (Mac の場合、GID を 20 (staff) にしても、エラーになるため)
     volumes:
       - ./src:/var/www/ # Laravel プロジェクトのマウント
 
@@ -39,7 +39,8 @@ services:
       - ./docker/mysql/my.cnf:/etc/mysql/conf.d/my.cnf
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin
+    #image: phpmyadmin/phpmyadmin # <- Mac M1/M2 でエラー
+    image: phpmyadmin:5.2 # マルチアーキテクチャ対応
     environment:
       - PMA_ARBITRARY=1
       - PMA_HOST=mysql

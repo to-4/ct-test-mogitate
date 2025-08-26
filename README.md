@@ -6,9 +6,13 @@
 
 ### Docker ビルド
 
-1. git clone git@github.com:to-4/ct-test-contact-form.git
-2. cd ct-test-contact-form
-3. printf "UID=%s\nGID=%s\n" "$(id -u)" "$(id -g)" > .env
+1. git clone git@github.com:to-4/ct-test-mogitate.git
+2. cd ct-test-mogitate
+3. Windows(wsl) の場合は、下記を実行
+   ```
+   printf "UID=%s\n" "$(id -u)" > .env
+   ```
+   ※ Mac の場合は省略可
 4. DockerDesktop アプリを立ち上げる
 5. docker compose up -d --build
 
