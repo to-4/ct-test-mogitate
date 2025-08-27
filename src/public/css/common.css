@@ -1,0 +1,55 @@
+/* 共通デザイン */
+body {
+    font-family: "Noto Sans JP", sans-serif;
+    margin: 0;
+    background: #f6f6f6;
+    color: #333;
+}
+
+.container {
+    width: min(1200px, 92vw);
+    margin: 0 auto;
+}
+
+.site-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    border-bottom: 1px solid #ddd;
+    padding: 12px 24px;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+    color: #f7a600;
+}
+
+/* 検索フォーム */
+.search-form {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.search-form input {
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.btn-search {
+    padding: 8px 16px;
+    background: #f7a600;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.search-form select {
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}

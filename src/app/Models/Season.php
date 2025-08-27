@@ -17,7 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  *     主キーID（自動採番）
  *
- * @property varchar(255) $name
+ * @property string $name
  *     季節名
  *
  * @property Carbon|null $created_at

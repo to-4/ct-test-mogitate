@@ -1,2 +1,4 @@
 *
 !.gitignore
+# Ignore png files
+!*.png

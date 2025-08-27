@@ -17,16 +17,16 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  *     主キーID（自動採番）
  *
- * @property varchar(255) $name
+ * @property string $name
  *     商品名
  *
  * @property int $price
  *     商品料金
  *
- * @property varchar(255) $image
+ * @property string $image
  *     商品画像
  *
- * @property text $description
+ * @property string $description
  *     商品説明
  *
  * @property Carbon|null $created_at
@@ -50,8 +50,8 @@ class Product extends Model
         'price' => 'integer',
     ];
 
-    public function season()
+    public function seasons()
     {
-        return $this->belongsTo(Season::class, 'product_season');
+        return $this->belongsToMany(Season::class, 'product_season');
     }
 }
