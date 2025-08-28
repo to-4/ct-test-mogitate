@@ -15,18 +15,12 @@ use App\Http\Controllers\ProductController;
 */
 
 Route::prefix('products')->group(function () {
-    // == 20250827 == //
-    // Route::get   ('/',                   [ProductController::class, 'index']   )->name('products.index');
-    // Route::get   ('/{productId}',        [ProductController::class, 'detail']  )->name('products.detail');
-    // Route::put   ('/{productId}/update', [ProductController::class, 'update']  )->name('products.update');
-    // Route::delete('/{productId}/delete', [ProductController::class, 'destroy'] )->name('products.destroy');
-    // Route::get   ('/register',           [ProductController::class, 'register'])->name('products.register');
-
+    // 動的パス（/{productId} など）は静的パス（/register など）より下に記述することで、ルーティングの競合を防ぐ
     Route::get   ('/',                   [ProductController::class, 'index']   )->name('products.index');
+    Route::get   ('/register',           [ProductController::class, 'create']  )->name('products.create');
+    Route::get   ('/search',             [ProductController::class, 'index']   )->name('products.search'); // index と同じ
     Route::get   ('/{productId}',        [ProductController::class, 'show']    )->name('products.show');
     Route::put   ('/{productId}/update', [ProductController::class, 'update']  )->name('products.update');
     Route::delete('/{productId}/delete', [ProductController::class, 'destroy'] )->name('products.destroy');
-    Route::get   ('/register',           [ProductController::class, 'create']  )->name('products.create');
     Route::post  ('/',                   [ProductController::class, 'store']   )->name('products.store');
-    // == 20250827 == //
 });

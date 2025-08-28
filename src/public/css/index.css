@@ -89,3 +89,13 @@
     background: #f7a600;
     color: #fff;
 }
+
+/* 商品一覧コンテナの上マージンを最小にして、検索欄と上端を揃える */
+.product-list-container {
+    margin-top: 0
+}
+
+/* もしカード側に上方向の余白が乗っている場合は軽く抑える */
+.product-list {
+    margin-top: 0
+}

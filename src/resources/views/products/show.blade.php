@@ -1,9 +1,15 @@
 @extends('layouts.app')
 
-@section('title', '商品詳細')
+@section('page_title', '商品詳細')
+
+@push('styles')
+    <link rel="stylesheet" href="{{ asset('css/show.css') }}">
+@endpush
+
+{{-- ※sidebar セクションは定義しない → 空枠だけ表示 --}}
 
 @section('content')
-<div class="product-detail">
+<div class="product-show">
 
     {{-- パンくず --}}
     <div class="breadcrumb">
@@ -11,11 +17,11 @@
     </div>
 
     {{-- 更新フォーム --}}
-    <form method="POST" action="{{ route('products.update', $product->id) }}" enctype="multipart/form-data" class="detail-form">
+    <form method="POST" action="{{ route('products.update', $product->id) }}" enctype="multipart/form-data" class="show-form">
         @csrf
         @method('PUT')
 
-        <div class="detail-left">
+        <div class="show-left">
             {{-- 画像 --}}
             <div class="image-box">
                 <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
@@ -30,7 +36,7 @@
             </div>
         </div>
 
-        <div class="detail-right">
+        <div class="show-right">
             {{-- 商品名 --}}
             <div class="form-group">
                 <label for="name">商品名</label>

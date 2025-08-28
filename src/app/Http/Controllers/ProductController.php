@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Season;
 use App\Http\Requests\ProductUpdateRequest;
+use App\Http\Requests\ProductStoreRequest;
 
 class ProductController extends Controller
 {
@@ -54,14 +55,39 @@ class ProductController extends Controller
             $selectedSeasonIds = $product->seasons->modelKeys(); // DBの関連ID配列
         }
 
-        return view('products.detail', compact('product','seasons','selectedSeasonIds'));
+        return view('products.show', compact('product','seasons','selectedSeasonIds'));
     }
 
     public function create()
     {
-        // pending implementation for product registration
-        $products = Product::all();
-        return view('products.index', compact('products'));
+        // 季節の選択肢を取得してビューへ
+        $seasons = Season::all();
+
+        return view('products.create', compact('seasons'));
+    }
+
+    public function store(ProductStoreRequest $request)
+    {
+        // バリデーション
+        $validated = $request->validated();
+
+        // 画像ファイルの保存（storage/app/public/products に格納）
+        $path = $request->file('image')->store('products', 'public');
+
+        // products テーブルへ登録
+        $product = Product::create([
+            'name'        => $validated['name'],
+            'price'       => $validated['price'],
+            'description' => $validated['description'],
+            'image'       => $path, // DB には storage 内の相対パスを保存
+        ]);
+
+        // 中間テーブル（product_season）へ登録
+        $product->seasons()->sync($validated['seasons']);
+
+        // 登録完了後、一覧へリダイレクト
+        $backUrl = session('products.index_url', route('products.index'));
+        return redirect($backUrl)->with('status', '商品を登録しました');
     }
 
     public function update(ProductUpdateRequest $request, $id)
@@ -115,5 +141,4 @@ class ProductController extends Controller
         $backUrl = session('products.index_url', route('products.index'));
         return redirect($backUrl)->with('status', '商品を削除しました');
     }
-
 }

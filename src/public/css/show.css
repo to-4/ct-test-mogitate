@@ -1,5 +1,5 @@
 /* 商品詳細ページ */
-.product-detail {
+.product-show {
     background: #fff;
     padding: 24px;
     border-radius: 8px;
@@ -20,17 +20,17 @@
     text-decoration: underline;
 }
 
-.detail-form {
+.show-form {
     display: flex;
     flex-wrap: wrap;
     gap: 24px;
 }
 
-.detail-left {
+.show-left {
     flex: 1 1 40%;
 }
 
-.detail-right {
+.show-right {
     flex: 1 1 50%;
 }
 
