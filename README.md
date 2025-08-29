@@ -45,6 +45,10 @@
     ```
     php artisan db:seed
     ```
+8.  シンボリックリンクの作成
+    ```
+    php artisan storage:link
+    ```
 
 ## 使用技術
 
