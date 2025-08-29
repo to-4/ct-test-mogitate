@@ -73,6 +73,10 @@
     border-radius: 20px;
     background: #fff;
     box-shadow: 0 1px 3px rgba(0, 0, 0, .06); /* うっすら影 */
+    box-sizing: border-box;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
     outline: none;
 }
 
@@ -88,7 +92,6 @@
     padding-right: 34px;  /* 矢印分の余白 */
 }
 
-
 /* 検索ボタンを同じ高さに */
 .sidebar .btn-search {
     display: inline-block;
@@ -103,10 +106,12 @@
     cursor: pointer;
     font-weight: 700;
 }
+.sidebar .btn-search:hover {
+    opacity: 0.9;
+}
 
 .sidebar hr {
-    margin: 4px 0 0;
-    /* 上端合わせのため余白を抑える */
+    margin: 4px 0 0; /* 上端合わせのため余白を抑える */
     border: none;
     border-top: 1px solid #eee;
 }
@@ -120,8 +125,35 @@
 
 .badge {
     background: #f7a600;
-    color: #fff;
+    color: #444;
     padding: 4px 10px;
     border-radius: 20px;
-    font-size: 13px
+    font-size: 12px
+}
+
+
+.sort-tags {
+    margin: 12px 0;
+}
+
+.tag {
+    display: inline-flex;
+    align-items: center;
+    /* background: #f2f2f2;
+    color: #333; */
+    padding: 4px 8px;
+    border-radius: 16px;
+    /* font-size: 13px; */
+    margin-right: 6px;
+}
+
+.tag-remove {
+    margin-left: 6px;
+    text-decoration: none;
+    color: #666;
+    font-weight: bold;
+}
+
+.tag-remove:hover {
+    color: #c00;
 }

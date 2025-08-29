@@ -20,15 +20,20 @@ class ProductController extends Controller
         if ($request->filled('keyword')) {
             $q->where('name', 'like', '%'.$request->keyword.'%');
         }
-        if ($request->sort === 'high')   $q->orderBy('price', 'desc');
-        if ($request->sort === 'low')    $q->orderBy('price', 'asc');
+
+        $sort = $request->sort;
+        if ($sort === 'high') {
+            $q->orderBy('price', 'desc');
+        } else if ($sort === 'low') {
+            $q->orderBy('price', 'asc');
+        }
 
         $products = $q->paginate(6)->appends($request->query());
 
         // 現在の一覧URL（ページ番号・検索条件つき）を保存
         session(['products.index_url' => $request->fullUrl()]);
 
-        return view('products.index', compact('products'));
+        return view('products.index', compact('products', 'sort'));
     }
 
     public function show($productId, Request $request)

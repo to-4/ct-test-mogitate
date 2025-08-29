@@ -13,8 +13,6 @@
 <a href="{{ route('products.create') }}" class="btn-add">+ 商品を追加</a>
 @endsection
 
-{{-- ※sidebar セクションは定義しない → 空枠だけ表示 --}}
-
 {{-- サイドバーの中身（検索など） --}}
 @section('sidebar')
     @include('layouts.sidebar')
@@ -30,8 +28,10 @@
                     <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}">
                 </a>
                 <div class="product-info">
-                    <h2 class="product-name">{{ $product->name }}</h2>
-                    <p class="product-price">¥{{ number_format($product->price) }}</p>
+                    <div class="product-meta">
+                        <h2 class="product-name">{{ $product->name }}</h2>
+                        <p class="product-price">¥{{ number_format($product->price) }}</p>
+                    </div>
                 </div>
             </article>
         @empty
@@ -41,7 +41,7 @@
 
     {{-- ページネーション --}}
     <div class="pagination">
-        {{ $products->appends(request()->query())->links() }}
+        {{ $products->appends(request()->query())->links('vendor.pagination.custom') }}
     </div>
 </div>
 @endsection

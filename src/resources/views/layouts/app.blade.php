@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>@yield('title')</title>
     {{-- 共通 --}}
+    <link rel="stylesheet" href="{{ asset('css/sanitize.css') }}">
     <link rel="stylesheet" href="{{ asset('css/common.css') }}">
     <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
 
@@ -55,5 +56,6 @@
 
 {{-- 画面ごとの追加JS（必要なら各Bladeで @push('scripts') を使用） --}}
 @stack('scripts')
+
 </body>
 </html>

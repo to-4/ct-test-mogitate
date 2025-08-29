@@ -1,9 +1,8 @@
 /* 商品詳細ページ */
 .product-show {
-    background: #fff;
+    background: transparent;
     padding: 24px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    width: 70%;
 }
 
 .breadcrumb {
@@ -32,6 +31,75 @@
 
 .show-right {
     flex: 1 1 50%;
+}
+
+/* == ファイル選択エリア == */
+.file-upload {
+    display: flex;
+    align-items: center; /* 子要素を縦中央に */
+    gap: 12px;
+}
+
+/* ラベルは“入れ物”。高さを決めて中身を中央寄せ */
+.file-label {
+    position: relative;
+    display: inline-flex; /* 中の .file-button を中央寄せしやすく */
+    align-items: center;  /* 縦中央に */
+    height: 25px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.file-button {
+    display: inline-flex;
+    align-items: center;     /* テキスト縦中央に */
+    justify-content: center; /* テキスト横中央に */
+    height: 25px;
+    padding: 0px 8px;
+    border-radius: 0px;
+    border: #444 solid 1px;
+    /* background: #f7a600; */
+    background: #ddd;
+    color: #444;
+    font-size: 10px;
+    font-weight: 400;
+    line-height: 1;          /* 不要な上下余白をなくす */
+    white-space: nowrap;
+}
+
+/* 実際の input[type=file] は透明にして上に重ねる */
+.file-label input[type="file"] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+}
+
+/* ファイル名表示 */
+.file-name {
+    display: inline-flex;
+    align-items: center; /* テキスト縦中央に */
+    height: 40px;
+    max-width: 140px;
+    line-height: 1;      /* 不要な上下余白をなくす */
+    font-size: 10px;
+    color: #999;
+}
+
+/* 「full」は折返して全幅にする（説明欄＆ボタン行用） */
+.form-group.full{
+    flex:1 1 100%;      /* 横幅100%のフレックス項目に */
+    max-width:100%;
+}
+
+/* 説明テキストは幅いっぱい＆適度な高さ */
+.form-group.full textarea{
+    width:100%;
+    min-height:120px;   /* 行数に関わらず見やすい高さ */
+    resize: vertical;
 }
 
 .image-box {
@@ -80,32 +148,59 @@
     margin-top: 4px;
 }
 
-/* ボタン */
-.form-buttons {
+/* アクション行：中央に「戻る・保存」、右端に削除 */
+.actions-row {
     display: flex;
-    justify-content: center;
-    gap: 12px;
+    align-items: center;     /* ボタン内テキストも縦中央に */
+    justify-content: center; /* 基本は中央寄せ */
     margin-top: 20px;
 }
 
+/* 戻る／保存は中央寄せ */
+.actions-row .center-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    flex: 1; /* 中央寄せ */
+}
+
+/* 削除フォームは右端へ押し出す */
+.actions-row .form-delete {
+    margin-left: auto; /* 右端固定 */
+}
+
 .btn {
-    display: inline-block;
-    padding: 10px 18px;
-    border-radius: 6px;
-    font-size: 14px;
-    cursor: pointer;
+    display: inline-flex; /* 内部のテキスト縦中央 */
+    align-items: center;  /* テキスト縦中央揃え */
+    justify-content: center;
+    height: 40px;
+    padding: 0px 18px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
     text-decoration: none;
     border: none;
+    cursor: pointer;
+    line-height: 1; /* 不要な上下余白をなくす */
+}
+.btn:hover {
+    opacity: 0.9;
+}
+
+/* 個別スタイル */
+
+.btn-back,.btn-save {
+    color: #444;
+    width: 140px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .18);
 }
 
 .btn-back {
     background: #ddd;
-    color: #333;
 }
 
 .btn-save {
     background: #f7a600;
-    color: #fff;
 }
 
 .btn-delete {
@@ -114,5 +209,54 @@
     font-size: 20px;
     border: none;
     cursor: pointer;
-    margin-top: 12px;
+}
+
+/* レイアウトの崩れ防止（フォームやテキストエリアと揃える） */
+.show-form .form-group.full {
+    margin-bottom: 0;
+}
+
+/* 季節チェックボックスを丸型に */
+.season-options input[type="checkbox"] {
+    appearance: none;      /* デフォルトの四角を消す */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    width: 14px;
+    height: 14px;
+    border: 1.5px solid #666;
+    border-radius: 50%;    /* ← 丸にするポイント */
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+
+    vertical-align: middle; /* テキストとの縦位置ズレ対策（行ボックス中央に揃える） */
+}
+
+/* ラベル行を中央揃えにしてズレを完全解消 */
+.season-options label {
+    display: inline-flex;      /* 1行内で横並び */
+    align-items: center;       /* 縦方向を中央に */
+    gap: 6px;                  /* アイコンと文字の間隔 */
+    line-height: 1;            /* 行の余白でズレないように */
+}
+
+/* チェックされたときの中身 */
+.season-options input[type="checkbox"]:checked {
+    background-color: #f7a600;    /* 中を塗る色（ブランドカラー） */
+    border-color: #f7a600;
+}
+
+/* 中央のチェックマークを描画 */
+.season-options input[type="checkbox"]:checked::after {
+    content: "✓" ;    /* マーク */
+    color: #fff;    /* 白文字 */
+    font-size: 10px;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 中央寄せ */
+    line-height: 1;
+    pointer-events: none;
 }

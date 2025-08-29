@@ -1,16 +1,14 @@
 /* 商品登録ページ */
 .product-create {
-    background: #fff;
+    background: transparent;
     padding: 24px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    width: 70%;
 }
 
 .page-title {
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 20px;
-    border-bottom: 2px solid #f7a600;
     padding-bottom: 6px;
 }
 
@@ -34,6 +32,10 @@
     border: 1px solid #ccc;
     border-radius: 6px;
 }
+.form-group textarea {
+    min-height: 120px; /* 行数に関わらず見やすい高さ */
+    resize: vertical;
+}
 
 .season-options {
     display: flex;
@@ -47,6 +49,131 @@
     margin-top: 4px;
 }
 
+/* ---- 必須/任意バッジ ---- */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 18px;
+    padding: 4px 6px;
+    border-radius: 2px;
+    font-size: 10px;
+    line-height: 1;
+    vertical-align: middle;   /* ラベル文字と縦位置を揃える */
+    margin-left: 6px;         /* ラベルとの間隔 */
+}
+
+.badge-required {           /* 必須（赤・白文字） */
+    background: #e53935;
+    color: #fff;
+    font-weight: 400;
+}
+
+.badge-optional {           /* 任意（薄グレー） ※必要なら */
+    background: #eee;
+    color: #666;
+    font-weight: 600;
+    border: 1px solid #ddd;
+}
+
+/* 補助バッジ（例：複数選択可など） */
+.badge-note {
+    background: #f5f5f5;
+    color: #777;
+    border: 1px solid #e5e5e5;
+}
+
+/* ラベル行の余白調整（既存と競合しない範囲で） */
+.form-group label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px; /* ラベル文字とバッジの間隔 */
+}
+
+.season-notes {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 18px;
+    padding: 4px 6px;
+    font-size: 10px;
+    line-height: 1;
+    vertical-align: middle;    /* ラベル文字と縦位置を揃える */
+    background: transparent;
+    color: #e53935;
+    font-weight: 400;
+}
+
+/* == ファイル選択エリア == */
+.file-upload {
+    display: flex;
+    align-items: center; /* 子要素を縦中央に */
+    gap: 12px;
+}
+
+/* ラベルは“入れ物”。高さを決めて中身を中央寄せ */
+.file-label {
+    position: relative;
+    display: inline-flex; /* 中の .file-button を中央寄せしやすく */
+    align-items: center;  /* 縦中央に */
+    height: 25px;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.file-button {
+    display: inline-flex;
+    align-items: center;     /* テキスト縦中央に */
+    justify-content: center; /* テキスト横中央に */
+    height: 25px;
+    padding: 0px 8px;
+    border-radius: 0px;
+    border: #444 solid 1px;
+    background: #ddd;
+    color: #444;
+    font-size: 10px;
+    font-weight: 400;
+    white-space: nowrap;
+    line-height: 1;    /* 不要な上下余白をなくす */
+}
+
+/* 実際の input[type=file] は透明にして上に重ねる */
+.file-label input[type="file"] {
+    position: absolute;
+    inset: 0; /* top/right/bottom/left をまとめて0に */
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* ファイル名表示 */
+.file-name {
+    display: inline-flex;
+    align-items: center; /* テキスト縦中央に */
+    height: 40px;
+    max-width: 140px;
+    line-height: 1;     /* 不要な上下余白をなくす */
+    font-size: 10px;
+    color: #999;
+}
+
+/* プレビュー */
+.image-preview {
+    margin-top: 10px;
+    max-width: 200px;
+    max-height: 200px;
+    margin-bottom: 10px;
+}
+
+.image-preview img {
+    max-width: 100%;
+    max-height: 100%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    object-fit: cover;
+}
+
 /* ボタン */
 .form-buttons {
     display: flex;
@@ -56,21 +183,77 @@
 }
 
 .btn {
-    display: inline-block;
-    padding: 10px 18px;
-    border-radius: 6px;
-    font-size: 14px;
-    cursor: pointer;
+    display: inline-flex; /* 内部のテキスト縦中央 */
+    align-items: center;  /* テキスト縦中央揃え */
+    justify-content: center;
+    height: 40px;
+    padding: 0px 18px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 700;
     text-decoration: none;
     border: none;
+    cursor: pointer;
+    line-height: 1; /* 不要な上下余白をなくす */
+
+    color: #444;
+    width: 140px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .18);
+
+}
+.btn:hover {
+    opacity: 0.9;
 }
 
 .btn-back {
     background: #ddd;
-    color: #333;
 }
 
 .btn-save {
     background: #f7a600;
-    color: #fff;
+}
+
+/* 季節チェックボックスを丸型に */
+.season-options input[type="checkbox"] {
+    appearance: none;      /* デフォルトの四角を消す */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    width: 14px;
+    height: 14px;
+    border: 1.5px solid #666;
+    border-radius: 50%;    /* ← 丸にするポイント */
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+
+    vertical-align: middle; /* テキストとの縦位置ズレ対策（行ボックス中央に揃える） */
+}
+
+/* ラベル行を中央揃えにしてズレを完全解消 */
+.season-options label {
+    display: inline-flex;      /* 1行内で横並び */
+    align-items: center;       /* 縦方向を中央に */
+    gap: 6px;                  /* アイコンと文字の間隔 */
+    line-height: 1;            /* 行の余白でズレないように */
+}
+
+/* チェックされたときの中身 */
+.season-options input[type="checkbox"]:checked {
+    background-color: #f7a600;    /* 中を塗る色（ブランドカラー） */
+    border-color: #f7a600;
+}
+
+/* 中央のチェックマークを描画 */
+.season-options input[type="checkbox"]:checked::after {
+    content: "✓" ;    /* マーク */
+    color: #fff;    /* 白文字 */
+    font-size: 10px;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* 中央寄せ */
+    line-height: 1;
+    pointer-events: none;
 }

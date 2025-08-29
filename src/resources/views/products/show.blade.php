@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-@section('page_title', '商品詳細')
-
 @push('styles')
     <link rel="stylesheet" href="{{ asset('css/show.css') }}">
 @endpush
@@ -17,7 +15,7 @@
     </div>
 
     {{-- 更新フォーム --}}
-    <form method="POST" action="{{ route('products.update', $product->id) }}" enctype="multipart/form-data" class="show-form">
+    <form id="update-form" method="POST" action="{{ route('products.update', $product->id) }}" enctype="multipart/form-data" class="show-form">
         @csrf
         @method('PUT')
 
@@ -28,8 +26,14 @@
             </div>
 
             {{-- ファイル選択 --}}
-            <div class="form-group">
-                <input type="file" name="image">
+            <div class="form-group file-upload">
+                <label class="file-label">
+                    <span class="file-button">ファイルを選択</span>
+                    <input type="file" name="image" id="fileInput" onchange="updateFileName(this)">
+                </label>
+                <span class="file-name" id="fileName">
+                    {{ $product->image ? basename($product->image) : '選択されていません' }}
+                </span>
                 @error('image')
                     <p class="error">{{ $message }}</p>
                 @enderror
@@ -81,20 +85,33 @@
                 <p class="error">{{ $message }}</p>
             @enderror
         </div>
+    </form> {{-- ← 更新フォームここまで --}}
 
-        {{-- ボタン --}}
-        <div class="form-buttons">
+    {{-- アクション行：中央に［戻る／保存］、右端に削除 --}}
+    <div class="actions-row">
+
+        <div class="center-actions">
             <a href="{{ session('products.index_url', route('products.index')) }}" class="btn btn-back">戻る</a>
-            <button type="submit" class="btn btn-save">変更を保存</button>
+            {{-- 更新フォームを送信（form属性で #update-form（外部フォーム） を送信） --}}
+            <button type="submit" form="update-form" class="btn btn-save">変更を保存</button>
         </div>
-    </form>
 
-    {{-- 削除ボタン --}}
-    <form method="POST" action="{{ route('products.destroy', $product->id) }}" class="delete-form"
-        onsubmit="return confirm('本当に削除しますか？');">
-        @csrf
-        @method('DELETE')
-        <button type="submit" class="btn btn-delete">🗑</button>
-    </form>
+        {{-- 削除（独立したフォーム） --}}
+        <form method="POST" action="{{ route('products.destroy', $product->id) }}"
+            class="form-delete" onsubmit="return confirm('本当に削除しますか？');">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-delete" aria-label="商品を削除">🗑</button>
+        </form>
+    </div>
 </div>
 @endsection
+
+@push('scripts')
+<script>
+function updateFileName(input) {
+    const fileName = input.files.length > 0 ? input.files[0].name : '選択されていません';
+    document.getElementById('fileName').textContent = fileName;
+}
+</script>
+@endpush

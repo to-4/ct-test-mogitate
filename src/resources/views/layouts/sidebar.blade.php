@@ -21,6 +21,23 @@
 
     <hr>
 
+    {{-- 並び替えタグ表示 --}}
+    @if($sort)
+        <div class="sort-tags badges">
+            @if($sort === 'high')
+                <span class="tag badge">
+                    高い順に表示
+                    <a href="{{ route('products.index', request()->except('sort')) }}" class="tag-remove">×</a>
+                </span>
+            @elseif($sort === 'low')
+                <span class="tag badge">
+                    低い順に表示
+                    <a href="{{ route('products.index', request()->except('sort')) }}" class="tag-remove">×</a>
+                </span>
+            @endif
+        </div>
+    @endif
+
     {{-- キーワードバッジ（スペース区切りで複数対応） --}}
     @if(request('keyword'))
         <div class="badges">
